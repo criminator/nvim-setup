@@ -427,7 +427,7 @@ do
       comments = { italic = true },
       functions = { italic = true, bold = true },
       identifiers = { italic = true },
-    }
+    },
   }
 
   -- Load the colorscheme here.
@@ -438,7 +438,6 @@ do
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
   require('todo-comments').setup { signs = false }
-
 
   -- [[ mini.nvim ]]
   --  A collection of various small independent plugins/modules
@@ -962,7 +961,8 @@ do
     local has_indent_query = vim.treesitter.query.get(language, 'indents') ~= nil
 
     -- Enable treesitter based indentation
-    if has_indent_query then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+    -- Skip for HTML (buggy)
+    if has_indent_query and language ~= 'html' then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
   end
 
   local available_parsers = require('nvim-treesitter').get_available()
@@ -1014,7 +1014,6 @@ do
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   require 'custom.plugins'
-
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
