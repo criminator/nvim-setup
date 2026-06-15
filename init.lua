@@ -421,6 +421,7 @@ do
 
   vim.pack.add { gh 'dgox16/oldworld.nvim' }
   require('oldworld').setup {
+    terminal_colors = true,
     variant = 'default',
     styles = {
       booleans = { italic = true },
@@ -428,6 +429,9 @@ do
       functions = { italic = true, bold = true },
       identifiers = { italic = true },
     },
+    integrations = {
+      neo_tree = true,
+    }
   }
 
   -- Load the colorscheme here.
@@ -737,7 +741,8 @@ do
     ts_ls = {},
 
     emmet_language_server = {},
-    markdownlint = {},
+
+    -- markdownlint = {},
 
     stylua = {}, -- Used to format Lua code
 
