@@ -119,6 +119,8 @@ do
   -- Don't show the mode, since it's already in the status line
   vim.o.showmode = false
 
+  -- vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor'
+
   -- Sync clipboard between OS and Neovim.
   --  Schedule the setting after `UiEnter` because it can increase startup-time.
   --  Remove this option if you want your OS clipboard to remain independent.
@@ -255,8 +257,20 @@ end
 
 -- [Custom Keymaps]
 -- Colorschemes
-vim.keymap.set('n', '<leader>cw', function() vim.cmd.colorscheme 'oldworld' end, { desc = 'Change colorscheme to oldworld' })
+vim.keymap.set('n', '<leader>cr', function() vim.cmd.colorscheme 'rose-pine' end, { desc = 'Change colorscheme to rose-pine' })
 vim.keymap.set('n', '<leader>ct', function() vim.cmd.colorscheme 'tokyonight' end, { desc = 'Change colorscheme to tokyonight' })
+vim.keymap.set('n', '<leader>cn', function() vim.cmd.colorscheme 'nightfly' end, { desc = 'Change colorscheme to nightfly' })
+vim.keymap.set('n', '<leader>cm', function() vim.cmd.colorscheme 'moonfly' end, { desc = 'Change colorscheme to moonfly' })
+vim.keymap.set('n', '<leader>cod', function() vim.cmd.colorscheme 'onedark_dark' end, { desc = 'Change colorscheme to onedark_dark' })
+vim.keymap.set('n', '<leader>cov', function() vim.cmd.colorscheme 'vaporwave' end, { desc = 'Change colorscheme to vaporwave (default)' })
+vim.keymap.set('n', '<leader>col', function() vim.cmd.colorscheme 'onelight' end, { desc = 'Change colorscheme to onelight' })
+vim.keymap.set('n', '<leader>coo', function() vim.cmd.colorscheme 'onedark' end, { desc = 'Change colorscheme to onedark' })
+vim.keymap.set('n', '<leader>cw', function() vim.cmd.colorscheme 'oldworld' end, { desc = 'Change colorscheme to oldworld' })
+vim.keymap.set('n', '<leader>ce', function() vim.cmd.colorscheme 'edge' end, { desc = 'Change colorscheme to edge' })
+vim.keymap.set('n', '<leader>cbd', function() vim.cmd.colorscheme 'bamboo' end, { desc = 'Change colorscheme to bamboo (dark)' })
+vim.keymap.set('n', '<leader>cbl', function() vim.cmd.colorscheme 'bamboo' vim.cmd ':set background=light' end, { desc = 'Change colorscheme to bamboo (light)' })
+vim.keymap.set('n', '<leader>cfl', function() vim.cmd.colorscheme 'everforest' vim.cmd ':set background=light' end, { desc = 'Change colorscheme to everforest' })
+vim.keymap.set('n', '<leader>cfd', function() vim.cmd.colorscheme 'everforest' vim.cmd ':set background=dark' end, { desc = 'Change colorscheme to everforest' })
 
 -- Find and replace
 vim.keymap.set('v', '<leader>sr', ':s//g<Left><Left>', { noremap = true, desc = 'search and replace in visual' })
@@ -411,32 +425,12 @@ do
   -- change the command under that to load whatever the name of that colorscheme is.
   --
   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  vim.pack.add { gh 'folke/tokyonight.nvim' }
-  ---@diagnostic disable-next-line: missing-fields
-  require('tokyonight').setup {
-    styles = {
-      comments = { italic = false }, -- Disable italics in comments
-    },
-  }
 
-  vim.pack.add { gh 'dgox16/oldworld.nvim' }
-  require('oldworld').setup {
-    terminal_colors = true,
-    variant = 'default',
-    styles = {
-      booleans = { italic = true },
-      comments = { italic = true },
-      functions = { italic = true, bold = true },
-      identifiers = { italic = true },
-    },
-    integrations = {
-      neo_tree = true,
-    }
-  }
 
   -- Load the colorscheme here.
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  require('custom.colorschemes')
   vim.cmd.colorscheme 'oldworld'
 
   -- Highlight todo, notes, etc in comments
