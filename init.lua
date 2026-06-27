@@ -121,6 +121,28 @@ do
 
   -- vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor'
 
+  -- I had issues with my cursor so the below should fix it
+  -- -- 1. Ensure the default guicursor links to the 'Cursor' highlight group
+  -- vim.opt.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor"
+  --
+  -- -- 2. Define exactly what 'Cursor' should look like when background changes
+  -- local function fix_cursor()
+  --   if vim.o.background == "light" then
+  --     -- Light Mode: Black cursor with white text underneath
+  --     vim.cmd("highlight Cursor guifg=white guibg=black")
+  --   else
+  --     -- Dark Mode: White/Light cursor with dark text underneath
+  --     vim.cmd("highlight Cursor guifg=black guibg=white")
+  --   end
+  -- end
+  --
+  -- -- 3. Run it immediately and every time you switch colorschemes
+  -- fix_cursor()
+  -- vim.api.nvim_create_autocmd("ColorScheme", {
+  --   callback = fix_cursor
+  -- })
+  --
+
   -- Sync clipboard between OS and Neovim.
   --  Schedule the setting after `UiEnter` because it can increase startup-time.
   --  Remove this option if you want your OS clipboard to remain independent.
@@ -257,20 +279,21 @@ end
 
 -- [Custom Keymaps]
 -- Colorschemes
-vim.keymap.set('n', '<leader>cr', function() vim.cmd.colorscheme 'rose-pine' end, { desc = 'Change colorscheme to rose-pine' })
-vim.keymap.set('n', '<leader>ct', function() vim.cmd.colorscheme 'tokyonight' end, { desc = 'Change colorscheme to tokyonight' })
-vim.keymap.set('n', '<leader>cn', function() vim.cmd.colorscheme 'nightfly' end, { desc = 'Change colorscheme to nightfly' })
-vim.keymap.set('n', '<leader>cm', function() vim.cmd.colorscheme 'moonfly' end, { desc = 'Change colorscheme to moonfly' })
-vim.keymap.set('n', '<leader>cod', function() vim.cmd.colorscheme 'onedark_dark' end, { desc = 'Change colorscheme to onedark_dark' })
-vim.keymap.set('n', '<leader>cov', function() vim.cmd.colorscheme 'vaporwave' end, { desc = 'Change colorscheme to vaporwave (default)' })
-vim.keymap.set('n', '<leader>col', function() vim.cmd.colorscheme 'onelight' end, { desc = 'Change colorscheme to onelight' })
-vim.keymap.set('n', '<leader>coo', function() vim.cmd.colorscheme 'onedark' end, { desc = 'Change colorscheme to onedark' })
-vim.keymap.set('n', '<leader>cw', function() vim.cmd.colorscheme 'oldworld' end, { desc = 'Change colorscheme to oldworld' })
-vim.keymap.set('n', '<leader>ce', function() vim.cmd.colorscheme 'edge' end, { desc = 'Change colorscheme to edge' })
-vim.keymap.set('n', '<leader>cbd', function() vim.cmd.colorscheme 'bamboo' end, { desc = 'Change colorscheme to bamboo (dark)' })
-vim.keymap.set('n', '<leader>cbl', function() vim.cmd.colorscheme 'bamboo' vim.cmd ':set background=light' end, { desc = 'Change colorscheme to bamboo (light)' })
-vim.keymap.set('n', '<leader>cfl', function() vim.cmd.colorscheme 'everforest' vim.cmd ':set background=light' end, { desc = 'Change colorscheme to everforest' })
-vim.keymap.set('n', '<leader>cfd', function() vim.cmd.colorscheme 'everforest' vim.cmd ':set background=dark' end, { desc = 'Change colorscheme to everforest' })
+vim.keymap.set('n', '<leader>cr', function() vim.o.background = 'dark' vim.cmd.colorscheme 'rose-pine' end, { desc = 'Change colorscheme to rose-pine' })
+vim.keymap.set('n', '<leader>ct', function() vim.o.background = 'dark' vim.cmd.colorscheme 'tokyonight' end, { desc = 'Change colorscheme to tokyonight' })
+vim.keymap.set('n', '<leader>cn', function() vim.o.background = 'dark' vim.cmd.colorscheme 'nightfly' end, { desc = 'Change colorscheme to nightfly' })
+vim.keymap.set('n', '<leader>cm', function() vim.o.background = 'dark' vim.cmd.colorscheme 'moonfly' end, { desc = 'Change colorscheme to moonfly' })
+vim.keymap.set('n', '<leader>cod', function() vim.o.background = 'dark' vim.cmd.colorscheme 'onedark_dark' end, { desc = 'Change colorscheme to onedark_dark' })
+vim.keymap.set('n', '<leader>cov', function() vim.o.background = 'dark' vim.cmd.colorscheme 'vaporwave' end, { desc = 'Change colorscheme to vaporwave (default)' })
+vim.keymap.set('n', '<leader>col', function() vim.o.background = 'light' vim.cmd.colorscheme 'onelight' end, { desc = 'Change colorscheme to onelight' })
+vim.keymap.set('n', '<leader>coo', function() vim.o.background = 'dark' vim.cmd.colorscheme 'onedark' end, { desc = 'Change colorscheme to onedark' })
+vim.keymap.set('n', '<leader>cw', function() vim.o.background = 'dark' vim.cmd.colorscheme 'oldworld' end, { desc = 'Change colorscheme to oldworld' })
+vim.keymap.set('n', '<leader>ce', function() vim.o.background = 'dark' vim.cmd.colorscheme 'edge' end, { desc = 'Change colorscheme to edge' })
+vim.keymap.set('n', '<leader>cbd', function() vim.o.background = 'dark' vim.cmd.colorscheme 'bamboo' end, { desc = 'Change colorscheme to bamboo (dark)' })
+vim.keymap.set('n', '<leader>cbl', function() vim.o.background = 'light' vim.cmd.colorscheme 'bamboo' end, { desc = 'Change colorscheme to bamboo (light)' })
+vim.keymap.set('n', '<leader>cfl', function() vim.o.background = 'light' vim.cmd.colorscheme 'everforest' end, { desc = 'Change colorscheme to everforest' })
+vim.keymap.set('n', '<leader>cfd', function() vim.o.background = 'dark' vim.cmd.colorscheme 'everforest' end, { desc = 'Change colorscheme to everforest' })
+
 
 -- Find and replace
 vim.keymap.set('v', '<leader>sr', ':s//g<Left><Left>', { noremap = true, desc = 'search and replace in visual' })
@@ -1014,6 +1037,35 @@ do
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   require 'custom.plugins'
 end
+
+vim.opt.guicursor =
+  "n-v-c-sm:block-Cursor," ..
+  "i-ci-ve:ver25-Cursor," ..
+  "r-cr-o:hor20-Cursor," ..
+  "t:block-TermCursor"
+
+local function fix_cursor()
+  if vim.o.background == "light" then
+    vim.api.nvim_set_hl(0, "Cursor", {
+      fg = "#ffffff",
+      bg = "#000000",
+    })
+  else
+    vim.api.nvim_set_hl(0, "Cursor", {
+      fg = "#000000",
+      bg = "#ffffff",
+    })
+  end
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = fix_cursor,
+})
+
+fix_cursor()
+
+
+-- vim: ts=2 sts=2 sw=2 et
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
