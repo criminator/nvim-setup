@@ -279,20 +279,37 @@ end
 
 -- [Custom Keymaps]
 -- Colorschemes
-vim.keymap.set('n', '<leader>cr', function() vim.o.background = 'dark' vim.cmd.colorscheme 'rose-pine' end, { desc = 'Change colorscheme to rose-pine' })
-vim.keymap.set('n', '<leader>ct', function() vim.o.background = 'dark' vim.cmd.colorscheme 'tokyonight' end, { desc = 'Change colorscheme to tokyonight' })
-vim.keymap.set('n', '<leader>cn', function() vim.o.background = 'dark' vim.cmd.colorscheme 'nightfly' end, { desc = 'Change colorscheme to nightfly' })
-vim.keymap.set('n', '<leader>cm', function() vim.o.background = 'dark' vim.cmd.colorscheme 'moonfly' end, { desc = 'Change colorscheme to moonfly' })
-vim.keymap.set('n', '<leader>cod', function() vim.o.background = 'dark' vim.cmd.colorscheme 'onedark_dark' end, { desc = 'Change colorscheme to onedark_dark' })
-vim.keymap.set('n', '<leader>cov', function() vim.o.background = 'dark' vim.cmd.colorscheme 'vaporwave' end, { desc = 'Change colorscheme to vaporwave (default)' })
-vim.keymap.set('n', '<leader>col', function() vim.o.background = 'light' vim.cmd.colorscheme 'onelight' end, { desc = 'Change colorscheme to onelight' })
-vim.keymap.set('n', '<leader>coo', function() vim.o.background = 'dark' vim.cmd.colorscheme 'onedark' end, { desc = 'Change colorscheme to onedark' })
-vim.keymap.set('n', '<leader>cw', function() vim.o.background = 'dark' vim.cmd.colorscheme 'oldworld' end, { desc = 'Change colorscheme to oldworld' })
-vim.keymap.set('n', '<leader>ce', function() vim.o.background = 'dark' vim.cmd.colorscheme 'edge' end, { desc = 'Change colorscheme to edge' })
-vim.keymap.set('n', '<leader>cbd', function() vim.o.background = 'dark' vim.cmd.colorscheme 'bamboo' end, { desc = 'Change colorscheme to bamboo (dark)' })
-vim.keymap.set('n', '<leader>cbl', function() vim.o.background = 'light' vim.cmd.colorscheme 'bamboo' end, { desc = 'Change colorscheme to bamboo (light)' })
-vim.keymap.set('n', '<leader>cfl', function() vim.o.background = 'light' vim.cmd.colorscheme 'everforest' end, { desc = 'Change colorscheme to everforest' })
-vim.keymap.set('n', '<leader>cfd', function() vim.o.background = 'dark' vim.cmd.colorscheme 'everforest' end, { desc = 'Change colorscheme to everforest' })
+local function set_colorscheme(name, background)
+  vim.cmd.colorscheme(name)
+  vim.o.background = background
+end
+
+local colorschemes = {
+  { '<leader>cr',  'rose-pine',    'dark',  'Change colorscheme to rose-pine' },
+  { '<leader>ct',  'tokyonight',   'dark',  'Change colorscheme to tokyonight' },
+  { '<leader>cn',  'nightfly',     'dark',  'Change colorscheme to nightfly' },
+  { '<leader>cy',  'moonfly',      'dark',  'Change colorscheme to moonfly' },
+  { '<leader>cod', 'onedark_dark', 'dark',  'Change colorscheme to onedark_dark' },
+  { '<leader>cov', 'vaporwave',    'dark',  'Change colorscheme to vaporwave' },
+  { '<leader>col', 'onelight',     'light', 'Change colorscheme to onelight' },
+  { '<leader>coo', 'onedark',      'dark',  'Change colorscheme to onedark' },
+  { '<leader>cw',  'oldworld',     'dark',  'Change colorscheme to oldworld' },
+  { '<leader>ce',  'edge',         'dark',  'Change colorscheme to edge' },
+  { '<leader>cbd', 'bamboo',       'dark',  'Change colorscheme to bamboo dark' },
+  { '<leader>cbl', 'bamboo',       'light', 'Change colorscheme to bamboo light' },
+  { '<leader>cfl', 'everforest',   'light', 'Change colorscheme to everforest light' },
+  { '<leader>cfd', 'everforest',   'dark',  'Change colorscheme to everforest dark' },
+  { '<leader>cmd', 'minicyan',     'dark',  'Change colorscheme to minicyan dark' },
+  { '<leader>cml', 'minischeme',   'light', 'Change colorscheme to minischeme light' },
+}
+
+for _, scheme in ipairs(colorschemes) do
+  local keys, name, background, desc = unpack(scheme)
+  vim.keymap.set('n', keys, function() set_colorscheme(name, background) end, { desc = desc })
+end
+
+vim.keymap.set('n', '<leader>cms', '<cmd>colorscheme minisummer<CR>', { desc = 'change to minisummer theme' })
+
 
 
 -- Find and replace
@@ -449,20 +466,21 @@ do
   --
   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
 
+  -- [[ mini.nvim ]]
+  --  A collection of various small independent plugins/modules
+  vim.pack.add { gh 'nvim-mini/mini.nvim' }
 
   -- Load the colorscheme here.
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
   require('custom.colorschemes')
-  vim.cmd.colorscheme 'oldworld'
+  vim.o.background = 'dark'
+  vim.cmd.colorscheme 'minicyan'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
   require('todo-comments').setup { signs = false }
 
-  -- [[ mini.nvim ]]
-  --  A collection of various small independent plugins/modules
-  vim.pack.add { gh 'nvim-mini/mini.nvim' }
 
   -- Better Around/Inside textobjects
   --
