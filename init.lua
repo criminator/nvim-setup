@@ -299,8 +299,8 @@ local colorschemes = {
   { '<leader>cbl', 'bamboo',       'light', 'Change colorscheme to bamboo light' },
   { '<leader>cfl', 'everforest',   'light', 'Change colorscheme to everforest light' },
   { '<leader>cfd', 'everforest',   'dark',  'Change colorscheme to everforest dark' },
-  { '<leader>cmd', 'minicyan',     'dark',  'Change colorscheme to minicyan dark' },
-  { '<leader>cml', 'minischeme',   'light', 'Change colorscheme to minischeme light' },
+  { '<leader>cmd', 'minisummer',     'dark',  'Change colorscheme to minicyan dark' },
+  { '<leader>cml', 'minicyan',   'light', 'Change colorscheme to minicyan light' },
 }
 
 for _, scheme in ipairs(colorschemes) do
@@ -309,6 +309,7 @@ for _, scheme in ipairs(colorschemes) do
 end
 
 vim.keymap.set('n', '<leader>cms', '<cmd>colorscheme minisummer<CR>', { desc = 'change to minisummer theme' })
+vim.keymap.set('n', '<leader>cmc', '<cmd>colorscheme minicyan<CR>', { desc = 'change to minicyan theme' })
 
 
 
@@ -475,7 +476,7 @@ do
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
   require('custom.colorschemes')
   vim.o.background = 'dark'
-  vim.cmd.colorscheme 'minicyan'
+  vim.cmd.colorscheme 'minisummer'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
