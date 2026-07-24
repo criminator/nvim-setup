@@ -278,6 +278,10 @@ do
 end
 
 -- [Custom Keymaps]
+
+-- Open explorer
+vim.keymap.set('n', '<leader>e', '<cmd>Ex<CR>', { desc = 'open file explorer' })
+
 -- Colorschemes
 local function set_colorscheme(name, background)
   vim.cmd.colorscheme(name)
