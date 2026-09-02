@@ -283,9 +283,18 @@ end
 vim.keymap.set('n', '<leader>e', '<cmd>Ex<CR>', { desc = 'open file explorer' })
 
 -- Colorschemes
-local function set_colorscheme(name, background)
-  vim.cmd.colorscheme(name)
+local colorscheme_state_file = vim.fs.joinpath(vim.fn.stdpath 'state', 'colorscheme.json')
+
+local function set_colorscheme(name, background, persist)
   vim.o.background = background
+  vim.cmd.colorscheme(name)
+
+  if persist then
+    local ok, result = pcall(vim.fn.writefile, { vim.json.encode { name = name, background = background } }, colorscheme_state_file)
+    if not ok or result ~= 0 then
+      vim.notify('Could not save colorscheme: ' .. tostring(result), vim.log.levels.WARN)
+    end
+  end
 end
 
 local colorschemes = {
@@ -307,13 +316,36 @@ local colorschemes = {
   { '<leader>cml', 'minicyan',   'light', 'Change colorscheme to minicyan light' },
 }
 
+local valid_colorschemes = {}
 for _, scheme in ipairs(colorschemes) do
-  local keys, name, background, desc = unpack(scheme)
-  vim.keymap.set('n', keys, function() set_colorscheme(name, background) end, { desc = desc })
+  valid_colorschemes[scheme[2] .. ':' .. scheme[3]] = true
 end
 
-vim.keymap.set('n', '<leader>cms', '<cmd>colorscheme minisummer<CR>', { desc = 'change to minisummer theme' })
-vim.keymap.set('n', '<leader>cmc', '<cmd>colorscheme minicyan<CR>', { desc = 'change to minicyan theme' })
+for _, scheme in ipairs(colorschemes) do
+  local keys, name, background, desc = unpack(scheme)
+  vim.keymap.set('n', keys, function() set_colorscheme(name, background, true) end, { desc = desc })
+end
+
+vim.keymap.set('n', '<leader>cms', function() set_colorscheme('minisummer', 'dark', true) end, { desc = 'change to minisummer theme' })
+vim.keymap.set('n', '<leader>cmc', function() set_colorscheme('minicyan', 'light', true) end, { desc = 'change to minicyan theme' })
+
+local function load_saved_colorscheme()
+  local ok, lines = pcall(vim.fn.readfile, colorscheme_state_file)
+  if not ok or not lines[1] then
+    return nil
+  end
+
+  local decoded_ok, saved = pcall(vim.json.decode, lines[1])
+  if not decoded_ok or type(saved) ~= 'table' then
+    return nil
+  end
+
+  if type(saved.name) == 'string'
+      and type(saved.background) == 'string'
+      and valid_colorschemes[saved.name .. ':' .. saved.background] then
+    return saved
+  end
+end
 
 
 
@@ -479,8 +511,12 @@ do
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
   require('custom.colorschemes')
-  vim.o.background = 'dark'
-  vim.cmd.colorscheme 'minisummer'
+  local saved_colorscheme = load_saved_colorscheme()
+  if saved_colorscheme then
+    set_colorscheme(saved_colorscheme.name, saved_colorscheme.background, false)
+  else
+    set_colorscheme('minisummer', 'dark', false)
+  end
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
