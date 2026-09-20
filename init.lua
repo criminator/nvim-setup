@@ -314,6 +314,10 @@ local colorschemes = {
   { '<leader>cfd', 'everforest',   'dark',  'Change colorscheme to everforest dark' },
   { '<leader>cmd', 'minisummer',     'dark',  'Change colorscheme to minicyan dark' },
   { '<leader>cml', 'minicyan',   'light', 'Change colorscheme to minicyan light' },
+  { '<leader>cl', 'lunaperche',   'dark', 'Change colorscheme to lunaperche' },
+  { '<leader>csl', 'slate',   'dark', 'Change colorscheme to slate' },
+  { '<leader>cso', 'sorbet',   'dark', 'Change colorscheme to sorbet' },
+  { '<leader>ci', 'wildcharm',   'dark', 'Change colorscheme to wildcharm' },
 }
 
 local valid_colorschemes = {}
