@@ -317,6 +317,7 @@ local colorschemes = {
   { '<leader>cl', 'lunaperche',   'dark', 'Change colorscheme to lunaperche' },
   { '<leader>csl', 'slate',   'dark', 'Change colorscheme to slate' },
   { '<leader>cso', 'sorbet',   'dark', 'Change colorscheme to sorbet' },
+  { '<leader>csr', 'srcery',   'dark', 'Change colorscheme to srcery' },
   { '<leader>ci', 'wildcharm',   'dark', 'Change colorscheme to wildcharm' },
 }
 
