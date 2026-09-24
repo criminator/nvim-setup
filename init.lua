@@ -307,7 +307,7 @@ local colorschemes = {
   { '<leader>col', 'onelight',     'light', 'Change colorscheme to onelight' },
   { '<leader>coo', 'onedark',      'dark',  'Change colorscheme to onedark' },
   { '<leader>cw',  'oldworld',     'dark',  'Change colorscheme to oldworld' },
-  { '<leader>ce',  'edge',         'dark',  'Change colorscheme to edge' },
+  { '<leader>cee',  'edge',         'dark',  'Change colorscheme to edge' },
   { '<leader>cbd', 'bamboo',       'dark',  'Change colorscheme to bamboo dark' },
   { '<leader>cbl', 'bamboo',       'light', 'Change colorscheme to bamboo light' },
   { '<leader>cfl', 'everforest',   'light', 'Change colorscheme to everforest light' },
@@ -319,6 +319,7 @@ local colorschemes = {
   { '<leader>cso', 'sorbet',   'dark', 'Change colorscheme to sorbet' },
   { '<leader>csr', 'srcery',   'dark', 'Change colorscheme to srcery' },
   { '<leader>ci', 'wildcharm',   'dark', 'Change colorscheme to wildcharm' },
+  { '<leader>cel', 'elflord',   'dark', 'Change colorscheme to elflord' },
 }
 
 local valid_colorschemes = {}
@@ -1034,7 +1035,7 @@ do
   vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } }
 
   -- Ensure basic parsers are installed
-  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'latex', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
   require('nvim-treesitter').install(parsers)
 
   ---@param buf integer
