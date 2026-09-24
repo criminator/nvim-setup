@@ -320,6 +320,11 @@ local colorschemes = {
   { '<leader>csr', 'srcery',   'dark', 'Change colorscheme to srcery' },
   { '<leader>ci', 'wildcharm',   'dark', 'Change colorscheme to wildcharm' },
   { '<leader>cel', 'elflord',   'dark', 'Change colorscheme to elflord' },
+  { '<leader>ccd', 'catppuccin',   'dark', 'Change colorscheme to catppuccin dark' },
+  { '<leader>ccl', 'catppuccin',   'light', 'Change colorscheme to catppuccin light' },
+  { '<leader>ckd', 'kanagawa',   'dark', 'Change colorscheme to kanagawa dark' },
+  { '<leader>ckl', 'kanagawa',   'light', 'Change colorscheme to kanagawa dark' },
+
 }
 
 local valid_colorschemes = {}
