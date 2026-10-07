@@ -6,6 +6,6 @@ vim.pack.add({
 })
 require("oklch-color-picker").setup({})
 
-vim.keymap.set("n", "<leader>v", function()
+vim.keymap.set("n", "<leader>p", function()
   require("oklch-color-picker").pick_under_cursor()
 end, { desc = "Color pick under cursor" })

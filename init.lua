@@ -312,23 +312,30 @@ local colorschemes = {
   { '<leader>cbl', 'bamboo',       'light', 'Change colorscheme to bamboo light' },
   { '<leader>cfl', 'everforest',   'light', 'Change colorscheme to everforest light' },
   { '<leader>cfd', 'everforest',   'dark',  'Change colorscheme to everforest dark' },
-  { '<leader>cmd', 'minisummer',   'dark',  'Change colorscheme to minicyan dark' },
+  { '<leader>cmd', 'minisummer',   'dark',  'Change colorscheme to minisummer dark' },
   { '<leader>cml', 'minicyan',     'light', 'Change colorscheme to minicyan light' },
-  { '<leader>cl', 'lunaperche',    'dark', 'Change colorscheme to lunaperche' },
   { '<leader>csl', 'slate',        'dark', 'Change colorscheme to slate' },
   { '<leader>cso', 'sorbet',       'dark', 'Change colorscheme to sorbet' },
   { '<leader>csr', 'srcery',       'dark', 'Change colorscheme to srcery' },
-  { '<leader>ci', 'wildcharm',     'dark', 'Change colorscheme to wildcharm' },
-  { '<leader>cel', 'elflord',      'dark', 'Change colorscheme to elflord' },
-  { '<leader>ccd', 'catppuccin',   'dark', 'Change colorscheme to catppuccin dark' },
-  { '<leader>ccl', 'catppuccin',   'light', 'Change colorscheme to catppuccin light' },
   { '<leader>cce', 'cendre',       'dark', 'Change colorscheme to cendre' },
   { '<leader>ckd', 'kanagawa',     'dark', 'Change colorscheme to kanagawa dark' },
-  { '<leader>ckl', 'kanagawa',     'light', 'Change colorscheme to kanagawa dark' },
+  { '<leader>ckl', 'kanagawa',     'light', 'Change colorscheme to kanagawa light' },
   { '<leader>cpm', 'catppuccin-mocha',       'dark', 'Change colorscheme to catppuccin-mocha' },
   { '<leader>cpf', 'catppuccin-frappe',       'dark', 'Change colorscheme to catppuccin-frappe' },
-  { '<leader>cpl', 'catppuccin-latte',       'dark', 'Change colorscheme to catppuccin-latte' },
+  { '<leader>cpl', 'catppuccin-latte',       'light','Change colorscheme to catppuccin-latte' },
   { '<leader>cpa', 'catppuccin-macchiato',       'dark', 'Change colorscheme to catppuccin-macchiato' },
+  -- Vim builtin colorschemes (dark)
+  { '<leader>cie', 'elflord',      'dark',  'Change colorscheme to elflord' },
+  { '<leader>ciw', 'wildcharm',    'dark',  'Change colorscheme to wildcharm' },
+  { '<leader>cil', 'lunaperche',   'dark',  'Change colorscheme to lunaperche' },
+  { '<leader>cii', 'industry',     'dark',  'Change colorscheme to industry' },
+  { '<leader>ciz', 'zaibatsu',     'dark',  'Change colorscheme to zaibatsu' },
+  { '<leader>cit', 'torte',        'dark',  'Change colorscheme to torte' },
+  { '<leader>cik', 'koehler',      'dark',  'Change colorscheme to koehler' },
+  -- Vim builtin colorschemes (light)
+  { '<leader>cir', 'zellner',      'light', 'Change colorscheme to zellner' },
+  { '<leader>cim', 'morning',      'light', 'Change colorscheme to morning' },
+  { '<leader>cid', 'delek',        'light', 'Change colorscheme to delek' },
 
 }
 
@@ -341,9 +348,6 @@ for _, scheme in ipairs(colorschemes) do
   local keys, name, background, desc = unpack(scheme)
   vim.keymap.set('n', keys, function() set_colorscheme(name, background, true) end, { desc = desc })
 end
-
-vim.keymap.set('n', '<leader>cms', function() set_colorscheme('minisummer', 'dark', true) end, { desc = 'change to minisummer theme' })
-vim.keymap.set('n', '<leader>cmc', function() set_colorscheme('minicyan', 'light', true) end, { desc = 'change to minicyan theme' })
 
 local function load_saved_colorscheme()
   local ok, lines = pcall(vim.fn.readfile, colorscheme_state_file)
@@ -490,20 +494,7 @@ do
   -- since otherwise the icons won't display properly.
   if vim.g.have_nerd_font then vim.pack.add { gh 'nvim-tree/nvim-web-devicons' } end
 
-  -- Here is a more advanced configuration example that passes options to `gitsigns.nvim`
-  --
-  -- See `:help gitsigns` to understand what each configuration key does.
-  -- Adds git related signs to the gutter, as well as utilities for managing changes
-  vim.pack.add { gh 'lewis6991/gitsigns.nvim' }
-  require('gitsigns').setup {
-    signs = {
-      add = { text = '+' }, ---@diagnostic disable-line: missing-fields
-      change = { text = '~' }, ---@diagnostic disable-line: missing-fields
-      delete = { text = '_' }, ---@diagnostic disable-line: missing-fields
-      topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
-      changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
-    },
-  }
+  -- gitsigns is configured in lua/custom/plugins/gitsigns.lua
 
   -- Useful plugin to show you pending keybinds.
   vim.pack.add { gh 'folke/which-key.nvim' }
@@ -569,18 +560,7 @@ do
   -- - sr)'  - [S]urround [R]eplace [)] [']
   require('mini.surround').setup()
 
-  -- Simple and easy statusline.
-  --  You could remove this setup call if you don't like it,
-  --  and try some other statusline plugin
-  local statusline = require 'mini.statusline'
-  -- Set `use_icons` to true if you have a Nerd Font
-  statusline.setup { use_icons = vim.g.have_nerd_font }
-
-  -- You can configure sections in the statusline by overriding their
-  -- default behavior. For example, here we set the section for
-  -- cursor location to LINE:COLUMN
-  ---@diagnostic disable-next-line: duplicate-set-field
-  statusline.section_location = function() return '%2l:%-2v' end
+  -- Statusline is lualine, configured in lua/custom/plugins/lualine.lua
 
   -- ... and there is more!
   --  Check out: https://github.com/nvim-mini/mini.nvim
@@ -1109,11 +1089,9 @@ do
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug'
-  -- require 'kickstart.plugins.indent_line'
   -- require 'kickstart.plugins.lint'
-  -- require 'kickstart.plugins.autopairs'
   -- require 'kickstart.plugins.neo-tree'
-  -- require 'kickstart.plugins.gitsigns' -- adds gitsigns recommended keymaps
+  -- (autopairs, gitsigns and indent-line live in lua/custom/plugins/)
 
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --
