@@ -811,6 +811,7 @@ do
   local servers = {
     clangd = {},
     -- gopls = {},
+    tinymist = {},
     pyright = {},
     rust_analyzer = {},
     --
